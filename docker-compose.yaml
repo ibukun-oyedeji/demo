@@ -1,0 +1,20 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "${APP_PORT}:3000"
+    environment:
+      - APP_PORT=${APP_PORT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
